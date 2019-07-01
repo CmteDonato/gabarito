@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+
+int main(){
+    
+    setlocale(LC_ALL, "Portuguese");
+    int qtdAlunos = 2;
+    int qtdQuestoes = 10;
+    int acertos[qtdAlunos];
+    char gabarito[qtdQuestoes];
+    char resposta[qtdAlunos][qtdQuestoes];
+    int a, q, i, j;
+    
+//faz a leitura do gabarito
+    for(q = 0; q < qtdQuestoes; q++){
+        printf("Digite a resposta para a questão %d do gabarito: ", q+1);
+        scanf ("%c%*c", &gabarito[q]);
+    }
+    
+//faz a leitura das notas
+    for(a = 0; a < qtdAlunos; a++){
+        for(q = 0; q < qtdQuestoes; q++){
+            printf("Digite a resposta para a questão %d do aluno %d: ", q+1, a+1) ;
+            scanf ("%c%*c", &resposta[a][q]);
+        }
+    }
+//grava a quantidade de acerto de cada aluno
+    for(i=0; i< qtdAlunos; i++){
+        acertos[i] = 0;
+        for(j=0; j<qtdQuestoes;j++){
+//se a resposta do aluno corresponder a questao do gabarito correta, incrementa o acerto
+            if(resposta[i][j] == gabarito[j]){
+                acertos[i] ++;
+            }
+        }
+    }
+    
+//percorre os acertos de cada aluno e informa se esta aprovado
+    for(i = 0; i< qtdAlunos; i++){
+        if(acertos[i] >= 7){
+            printf("Aluno %d foi aprovado com %d acertos. \n", i+1, acertos[i]) ;
+        }else if(acertos[i] >= 5 &&  acertos[i] < 7){
+            printf("Aluno %d está¡ em recuperação com %d acertos. \n", i+1, acertos[i]) ;
+        }else{
+            printf("Aluno %d está¡ reprovado com %d acertos. \n", i+1, acertos[i]) ;
+        }
+    }
+    return 0;
+}
